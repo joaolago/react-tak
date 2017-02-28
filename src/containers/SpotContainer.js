@@ -50,4 +50,10 @@ class SpotContainer extends Component {
     );
   }
 }
+
+SpotContainer.propTypes = {
+  selected: React.PropTypes.bool,
+  onClick: React.PropTypes.func.isRequired,
+};
+
 export default SpotContainer;
