@@ -1,0 +1,43 @@
+.spot {
+  width: 100px;
+  height: 100px;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.spot__empty {
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #FFF;
+}
+
+.piece {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+}
+
+.piece--white {
+  background: #FFF;
+  border-bottom: solid 3px #AAA;
+  border-right: solid 3px #AAA;
+  border-top: solid 2px #EEE;
+  border-left: solid 2px #EEE;
+}
+
+.piece--brown {
+  background: #a52a2a;
+  border-bottom: solid 3px #730707;
+  border-right: solid 3px #730707;
+  border-top: solid 2px #931919;
+  border-left: solid 2px #931919;
+}
+
+.piece.selected {
+  transform: rotate(10deg);
+}
