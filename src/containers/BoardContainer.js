@@ -12,17 +12,17 @@ class BoardContainer extends Component {
 
   onPieceClicked(position, grabbedPiece) {
     if ( this.state.pieceOnHand ) {
-      this.props.onMovePiece(position, this.state.pieceOnHand);
+      if (position !== this.state.pieceOnHand) {
+        this.props.onMovePiece(position, this.state.pieceOnHand);
+      }
       this.setState({ pieceOnHand: null });
     } else {
       if ( grabbedPiece ) {
         if ( grabbedPiece.color === this.props.turn ) {
           this.setState({ pieceOnHand: position });
         }
-      } else if (position !== this.state.pieceOnHand) {
-        this.props.onMovePiece( position );
       } else {
-        this.setState({ pieceOnHand: null });
+        this.props.onMovePiece( position );
       }
     }
   }

@@ -20,6 +20,7 @@
   height: 40px;
   display: block;
   position: absolute;
+  transition: 300ms;
 }
 
 .piece--white {

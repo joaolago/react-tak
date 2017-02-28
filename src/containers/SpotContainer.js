@@ -5,7 +5,7 @@ class SpotContainer extends Component {
 
   handleClick() {
     const topPiece = this.props.content.length > 0 ?
-                       this.props.content[this.props.content.length-1] 
+                       this.props.content[this.props.content.length-1]
                        :
                        null;
 
@@ -48,6 +48,6 @@ class SpotContainer extends Component {
         }
       </div>
     );
-  };
+  }
 }
 export default SpotContainer;
