@@ -8,6 +8,7 @@ class BoardContainer extends Component {
 
     this.state = {
       pieceOnHand: null,
+      originalStackLength: null,
     };
   }
 
@@ -16,53 +17,64 @@ class BoardContainer extends Component {
 
     if ( delta === 1 && destination % this.props.sides > 0 ) {
       return true;
-    } else if ( delta === -1 && destination > 0 && destination % this.props.sides > 0) {
+    } else if ( delta === -1 && destination > 0 && destination % this.props.sides >= 0) {
       return true;
     } else if ( delta === this.props.sides && destination < this.props.sides * this.props.sides ) {
       return true;
     } else if ( delta === -this.props.sides && destination > 0) {
       return true;
     }
-    
+
     return false;
   }
 
-  onPieceClicked(position, grabbedPiece) {
-    if ( this.state.pieceOnHand ) {
-      if (position !== this.state.pieceOnHand && this.isDestinationAllowed(position)) {
+  onPieceClicked(props, grabbedPiece) {
+    const { position, content } = { ...props };
+
+    if ( this.state.pieceOnHand ) { // We're about to move a piece to another spot or on top of another piece
+      if (
+        position !== this.state.pieceOnHand && // We're not moving to the same location
+        this.isDestinationAllowed(position) && // We're not making an illegal move
+        this.state.originalStackLength >= content.length // The  destination stack is legal
+      ) {
         this.props.onMovePiece(position, this.state.pieceOnHand);
       }
-      this.setState({ pieceOnHand: null });
-    } else {
-      if ( grabbedPiece ) {
-        if ( grabbedPiece.color === this.props.turn ) {
-          this.setState({ pieceOnHand: position });
+      this.setState({
+        pieceOnHand: null,
+        originalStackLength: null
+      });
+    } else { // We don't have a piece in our hand
+      if ( grabbedPiece ) { // We're grabbing a piece
+        if ( grabbedPiece.color === this.props.turn ) { // Is this our piece?
+          this.setState({
+            pieceOnHand: position,
+            originalStackLength: content.length
+          });
         }
-      } else {
+      } else { // We're dropping a new piece
         this.props.onMovePiece( position );
       }
     }
   }
 
-  renderSpot(spot) {
-    return <Spot
-             key={spot.position}
-             {...spot}
-             selected={spot.position === this.state.pieceOnHand}
-             onClick={ this.onPieceClicked.bind(this) }
-           />;
-  }
-
   render() {
+    const view = this;
     const classes = [
       "board",
       "board--" + this.props.sides + "x" + this.props.sides,
     ];
-
+    
     return (
       <div className={ classes.join(" ") }>
         {
-          this.props.board.map((spot) => this.renderSpot(spot) )
+          this.props.board.map((spot) =>
+            <Spot
+              key={spot.position}
+              {...spot}
+              selected={spot.position === view.state.pieceOnHand}
+              onClick={ view.onPieceClicked.bind(view) }
+            />
+          )
         }
       </div>
     );

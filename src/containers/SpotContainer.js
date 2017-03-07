@@ -9,7 +9,7 @@ class SpotContainer extends Component {
                        :
                        null;
 
-    this.props.onClick(this.props.position, topPiece);
+    this.props.onClick(this.props, topPiece);
   }
 
   render() {
