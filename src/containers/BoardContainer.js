@@ -31,11 +31,18 @@ class BoardContainer extends Component {
   onPieceClicked(props, grabbedPiece) {
     const { position, content } = { ...props };
 
+    if ( content.length > 0 && content[content.length - 1].pieceType === "cap" ) {
+      return null;
+    }
+
     if ( this.state.pieceOnHand ) { // We're about to move a piece to another spot or on top of another piece
-      if (
+      if ( content.length > 0 && content[content.length - 1].pieceType === "wall" ) {
+        return null;
+      } else if (
         position !== this.state.pieceOnHand && // We're not moving to the same location
         this.isDestinationAllowed(position) && // We're not making an illegal move
         this.state.originalStackLength >= content.length // The  destination stack is legal
+
       ) {
         this.props.onMovePiece(position, this.state.pieceOnHand);
       }

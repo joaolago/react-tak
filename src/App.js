@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       sides: 3,
       turn: "white",
+      pieceType: "normal",
       board: []
     };
   }
@@ -23,7 +24,10 @@ class App extends Component {
 
     // TODO: Refactor this
     for (let i = 0; i < sides * sides; i++) {
-      const spot = { position: i, content: [] };
+      const spot = {
+        position: i,
+        content: [],
+      };
       
       newBoard.push(spot);
     }
@@ -47,15 +51,24 @@ class App extends Component {
       newBoard[oldPosition] = originPosition;
     }
 
-    destinationPosition.content.push({ color: this.state.turn });
+    destinationPosition.content.push({
+      color: this.state.turn,
+      pieceType: this.state.pieceType,
+    });
+
     newBoard[newPosition] = destinationPosition;
     
     const nextTurn = this.state.turn === "white" ? "brown" : "white";
 
     this.setState({
       board: newBoard,
-      turn: nextTurn
+      turn: nextTurn,
+      pieceType: "normal",
     });
+  }
+
+  onPieceTypeChanged(event) {
+    this.setState({ pieceType: event.target.value });
   }
 
   render() {
@@ -67,6 +80,16 @@ class App extends Component {
                turn={this.state.turn}
                onMovePiece={this.handleMovePiece.bind(this)}
         />
+        <p>
+          <label htmlFor="pieceType"> Select Piece Type: </label>
+            <select name="pieceType" onChange={ this.onPieceTypeChanged.bind(this) }
+                    value={ this.state.pieceType }
+            >
+              <option value="normal">Normal</option>
+              <option value="wall">Wall</option>
+              <option value="cap">Cap</option>
+            </select>
+        </p>
       </div>
     );
   }

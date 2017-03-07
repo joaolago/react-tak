@@ -25,18 +25,41 @@
 
 .piece--white {
   background: #FFF;
-  border-bottom: solid 3px #AAA;
-  border-right: solid 3px #AAA;
-  border-top: solid 2px #EEE;
-  border-left: solid 2px #EEE;
+  box-shadow: 1px 1px 0px #AAA,
+              2px 2px 0px #AAA,
+              3px 3px 0px #AAA,
+              4px 4px 0px #AAA,
+              5px 5px 0px #AAA,
+              1px 1px 0px #EEE,
+              2px 2px 0px #EEE,
+              3px 3px 0px #EEE,
+              4px 4px 0px #EEE,
+              5px 5px 0px #EEE;
 }
 
 .piece--brown {
   background: #a52a2a;
-  border-bottom: solid 3px #730707;
-  border-right: solid 3px #730707;
-  border-top: solid 2px #931919;
-  border-left: solid 2px #931919;
+  box-shadow: 1px 1px 0px #730707,
+              2px 2px 0px #730707,
+              3px 3px 0px #730707,
+              4px 4px 0px #730707,
+              5px 5px 0px #730707,
+              1px 1px 0px #931919,
+              2px 2px 0px #931919,
+              3px 3px 0px #931919,
+              4px 4px 0px #931919,
+              5px 5px 0px #931919;
+}
+
+.piece--wall {
+  height: 20px;
+}
+
+.piece--cap {
+  width: 20px;
+  height: 20px;
+  border-radius: 15px;
+  margin: 0 10px 10px 0;
 }
 
 .piece.selected {

@@ -21,13 +21,18 @@ class SpotContainer extends Component {
       spotContent = this.props.content.map((piece, index) => {
         const styles = {
           zIndex: index,
-          bottom: 30 + (index * 5),
-          left: 30 + (index * 5),
+          bottom: 30 + (index * 9),
+          left: 25 + (index ),
         };
+
+        if ( piece.pieceType === "wall" ) {
+          styles.bottom += 5;
+        }
 
         const classes = [
           "piece",
           "piece--" + piece.color,
+          "piece--" + piece.pieceType,
         ];
 
         if ( this.props.selected ) {
@@ -42,7 +47,9 @@ class SpotContainer extends Component {
     }
 
     return (
-      <div className="spot" onClick={ this.handleClick.bind(this) }>
+      <div className="spot"
+           onClick={ this.handleClick.bind(this) }
+      >
         {
           spotContent
         }
