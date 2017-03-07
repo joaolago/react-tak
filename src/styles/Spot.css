@@ -11,8 +11,7 @@
 .spot__empty {
   width: 20px;
   height: 20px;
-  border-radius: 20px;
-  background: #FFF;
+  border: solid 1px #FFF;
 }
 
 .piece {
@@ -59,7 +58,7 @@
   width: 20px;
   height: 20px;
   border-radius: 15px;
-  margin: 0 10px 10px 0;
+  margin: 0 0 10px 5px;
 }
 
 .piece.selected {

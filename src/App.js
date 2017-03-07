@@ -78,6 +78,7 @@ class App extends Component {
         <Board board={this.state.board}
                sides={this.state.sides}
                turn={this.state.turn}
+               currentPieceType={this.state.pieceType}
                onMovePiece={this.handleMovePiece.bind(this)}
         />
         <p>

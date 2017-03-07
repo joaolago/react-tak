@@ -32,6 +32,10 @@ class BoardContainer extends Component {
     const { position, content } = { ...props };
 
     if ( content.length > 0 && content[content.length - 1].pieceType === "cap" ) {
+      this.setState({
+        pieceOnHand: null,
+        originalStackLength: null
+      });
       return null;
     }
 
@@ -42,7 +46,6 @@ class BoardContainer extends Component {
         position !== this.state.pieceOnHand && // We're not moving to the same location
         this.isDestinationAllowed(position) && // We're not making an illegal move
         this.state.originalStackLength >= content.length // The  destination stack is legal
-
       ) {
         this.props.onMovePiece(position, this.state.pieceOnHand);
       }
@@ -51,8 +54,10 @@ class BoardContainer extends Component {
         originalStackLength: null
       });
     } else { // We don't have a piece in our hand
-      if ( grabbedPiece ) { // We're grabbing a piece
-        if ( grabbedPiece.color === this.props.turn ) { // Is this our piece?
+      if ( grabbedPiece ) { // We're clicking on a place that already has a piece
+        if ( this.props.currentPieceType === "cap") {
+          this.props.onMovePiece( position );
+        } else if ( grabbedPiece.color === this.props.turn ) { // is this piece the same color as ours?
           this.setState({
             pieceOnHand: position,
             originalStackLength: content.length
@@ -92,6 +97,7 @@ BoardContainer.propTypes = {
   board: React.PropTypes.array.isRequired,
   sides: React.PropTypes.number.isRequired,
   turn: React.PropTypes.string.isRequired,
+  currentPieceType: React.PropTypes.string.isRequired,
   onMovePiece: React.PropTypes.func.isRequired,
 };
 
