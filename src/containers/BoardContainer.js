@@ -55,7 +55,7 @@ class BoardContainer extends Component {
       });
     } else { // We don't have a piece in our hand
       if ( grabbedPiece ) { // We're clicking on a place that already has a piece
-        if ( this.props.currentPieceType === "cap") {
+        if ( this.props.currentPieceType === "cap") { // if we're dropping a cap piece, then we can do so anywhere
           this.props.onMovePiece( position );
         } else if ( grabbedPiece.color === this.props.turn ) { // is this piece the same color as ours?
           this.setState({

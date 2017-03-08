@@ -21,8 +21,8 @@ class SpotContainer extends Component {
       spotContent = this.props.content.map((piece, index) => {
         const styles = {
           zIndex: index,
-          bottom: 30 + (index * 9),
-          left: 25 + (index ),
+          bottom: 30 + (index * 10),
+          left: 23 + (index ),
         };
 
         if ( piece.pieceType === "wall" ) {
