@@ -6,12 +6,16 @@ class PieceSelector extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { selected: "" };
+    this.state = { selected: "normal" };
   }
 
   pieceSelected(selection) {
     this.setState({ selected: selection });
-    this.props.onPieceSelected.bind(this, selection);
+    this.props.onPieceSelected(selection);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ selected: nextProps.selected });
   }
 
   render() {
@@ -35,14 +39,18 @@ class PieceSelector extends Component {
           />
         </a>
 
-        <a className={ this.state.selected === "cap" ? "selected" : ""}
-           onClick={this.pieceSelected.bind(this, "cap")}
-        >
-          <Piece color={this.props.currentTurn}
-                 demo={true}
-                 pieceType="cap"
-          />
-        </a>
+        {
+          !this.props.caps[this.props.currentTurn] &&
+          <a className={ this.state.selected === "cap" ? "selected" : ""}
+             onClick={this.pieceSelected.bind(this, "cap")}
+          >
+            <Piece color={this.props.currentTurn}
+                   demo={true}
+                   pieceType="cap"
+            />
+          </a>
+        }
+        
       </div>
     );
   }
@@ -50,6 +58,7 @@ class PieceSelector extends Component {
 
 PieceSelector.propTypes = {
   currentTurn: React.PropTypes.string.isRequired,
+  selected: React.PropTypes.string.isRequired,
 };
 
 export default PieceSelector;

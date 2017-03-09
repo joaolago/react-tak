@@ -12,7 +12,11 @@ class App extends Component {
       sides: 5,
       turn: "white",
       pieceType: "normal",
-      board: []
+      playedCaps: {
+        white: false,
+        brown: false
+      },
+      board: [],
     };
   }
 
@@ -38,7 +42,7 @@ class App extends Component {
   }
 
   handleMovePiece( newPosition, oldPosition ) {
-    const newBoard = this.state.board;
+    const { board, playedCaps } = this.state;
     const destinationPosition = this.state.board.find(
       (square) => square.position === newPosition
     );
@@ -50,7 +54,7 @@ class App extends Component {
         (square) => square.position === oldPosition
       );
       originPosition.content.pop();
-      newBoard[oldPosition] = originPosition;
+      board[oldPosition] = originPosition;
     }
 
     destinationPosition.content.push({
@@ -58,13 +62,19 @@ class App extends Component {
       pieceType: this.state.pieceType,
     });
 
-    newBoard[newPosition] = destinationPosition;
+
+    if ( this.state.pieceType === "cap" ) {
+      playedCaps[this.state.turn] = true;
+    }
+
+    board[newPosition] = destinationPosition;
     
     const nextTurn = this.state.turn === "white" ? "brown" : "white";
 
     this.setState({
-      board: newBoard,
+      board: board,
       turn: nextTurn,
+      playedCaps: playedCaps,
       pieceType: "normal",
     });
   }
@@ -83,7 +93,11 @@ class App extends Component {
                currentPieceType={this.state.pieceType}
                onMovePiece={this.handleMovePiece.bind(this)}
         />
-        <PieceSelector currentTurn={this.state.turn} onPieceSelected={this.onPieceTypeChanged.bind(this)} />
+        <PieceSelector currentTurn={this.state.turn}
+                       onPieceSelected={this.onPieceTypeChanged.bind(this)}
+                       selected={this.state.pieceType}
+                       caps={this.state.playedCaps}
+        />
       </div>
     );
   }

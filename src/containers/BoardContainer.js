@@ -14,14 +14,14 @@ class BoardContainer extends Component {
 
   isDestinationAllowed(destination) {
     const delta = destination - this.state.pieceOnHand;
-
+    
     if ( delta === 1 && destination % this.props.sides > 0 ) {
       return true;
     } else if ( delta === -1 && destination > 0 && destination % this.props.sides >= 0) {
       return true;
     } else if ( delta === this.props.sides && destination < this.props.sides * this.props.sides ) {
       return true;
-    } else if ( delta === -this.props.sides && destination > 0) {
+    } else if ( delta === -this.props.sides && destination >= 0) {
       return true;
     }
 
