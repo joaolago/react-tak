@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Piece from '../components/Piece';
 import "../styles/Spot.css";
 
 class SpotContainer extends Component {
@@ -29,19 +30,11 @@ class SpotContainer extends Component {
           styles.bottom += 5;
         }
 
-        const classes = [
-          "piece",
-          "piece--" + piece.color,
-          "piece--" + piece.pieceType,
-        ];
-
-        if ( this.props.selected ) {
-          classes.push( "selected" );
-        }
-
-        return <div className={ classes.join(" ") }
-                    key={index}
-                    style={styles}
+        return <Piece color={ piece.color }
+                      pieceType={ piece.pieceType }
+                      selected={ this.props.selected }
+                      key={ index }
+                      styles={ styles }
                />;
       });
     }

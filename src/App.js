@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Board from "./containers/BoardContainer";
+import PieceSelector from "./components/PieceSelector";
+
 import './styles/App.css';
 
 class App extends Component {
@@ -7,7 +9,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      sides: 3,
+      sides: 5,
       turn: "white",
       pieceType: "normal",
       board: []
@@ -67,8 +69,8 @@ class App extends Component {
     });
   }
 
-  onPieceTypeChanged(event) {
-    this.setState({ pieceType: event.target.value });
+  onPieceTypeChanged(type) {
+    this.setState({ pieceType: type });
   }
 
   render() {
@@ -81,16 +83,7 @@ class App extends Component {
                currentPieceType={this.state.pieceType}
                onMovePiece={this.handleMovePiece.bind(this)}
         />
-        <p>
-          <label htmlFor="pieceType"> Select Piece Type: </label>
-            <select name="pieceType" onChange={ this.onPieceTypeChanged.bind(this) }
-                    value={ this.state.pieceType }
-            >
-              <option value="normal">Normal</option>
-              <option value="wall">Wall</option>
-              <option value="cap">Cap</option>
-            </select>
-        </p>
+        <PieceSelector currentTurn={this.state.turn} onPieceSelected={this.onPieceTypeChanged.bind(this)} />
       </div>
     );
   }
