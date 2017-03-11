@@ -10,6 +10,7 @@ class GameContainer extends Component {
     this.state = {
       sides: props.gridSize,
       turn: "white",
+      turnCount: 0,
       pieceType: "normal",
       playedCaps: {
         white: false,
@@ -45,6 +46,11 @@ class GameContainer extends Component {
     const destinationPosition = this.state.board.find(
       (square) => square.position === newPosition
     );
+    let pieceColor = this.state.turn;
+
+    if ( this.state.turnCount < 2 ) {
+      pieceColor =  this.state.turn === "white" ? "brown" : "white";
+    }
     
     let originPosition = null;
 
@@ -57,7 +63,7 @@ class GameContainer extends Component {
     }
 
     destinationPosition.content.push({
-      color: this.state.turn,
+      color: pieceColor,
       pieceType: this.state.pieceType,
     });
 
@@ -71,9 +77,10 @@ class GameContainer extends Component {
     const nextTurn = this.state.turn === "white" ? "brown" : "white";
 
     this.setState({
-      board: board,
+      board,
       turn: nextTurn,
-      playedCaps: playedCaps,
+      turnCount: this.state.turnCount+1,
+      playedCaps,
       pieceType: "normal",
     });
   }
