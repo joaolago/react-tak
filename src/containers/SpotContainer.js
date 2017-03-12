@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'underscore';
 import Piece from '../components/Piece';
 import "../styles/Spot.css";
 
@@ -6,7 +7,7 @@ class SpotContainer extends Component {
 
   handleClick() {
     const topPiece = this.props.content.length > 0 ?
-                       this.props.content[this.props.content.length-1]
+                       _.last(this.props.content)
                        :
                        null;
 

@@ -8,7 +8,6 @@ class GameContainer extends Component {
     super(props);
 
     this.state = {
-      sides: props.gridSize,
       turn: "white",
       turnCount: 0,
       pieceType: "normal",
@@ -26,7 +25,7 @@ class GameContainer extends Component {
 
   buildBoard() {
     const newBoard = [];
-    const { sides } = this.state;
+    const sides = this.props.gridSize;
 
     // TODO: Refactor this
     for (let i = 0; i < sides * sides; i++) {
@@ -49,13 +48,13 @@ class GameContainer extends Component {
     let pieceColor = this.state.turn;
 
     if ( this.state.turnCount < 2 ) {
-      pieceColor =  this.state.turn === "white" ? "brown" : "white";
+      pieceColor = this.state.turn === "white" ? "brown" : "white";
     }
     
     let originPosition = null;
 
-    if ( oldPosition ) {
-       originPosition = this.state.board.find(
+    if ( oldPosition !== undefined ) {
+      originPosition = this.state.board.find(
         (square) => square.position === oldPosition
       );
       originPosition.content.pop();
@@ -94,7 +93,7 @@ class GameContainer extends Component {
       <div className="App">
         <h1>Player's turn: { this.state.turn }</h1>
         <Board board={this.state.board}
-               sides={this.state.sides}
+               sides={this.props.gridSize}
                turn={this.state.turn}
                currentPieceType={this.state.pieceType}
                onMovePiece={this.handleMovePiece.bind(this)}
