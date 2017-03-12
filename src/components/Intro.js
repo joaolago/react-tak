@@ -3,15 +3,15 @@ import "../styles/Intro.css";
 
 
 export default function Intro ( props ) {
-  function on3Clicked () {
+  const on3Clicked = () => {
     props.onSizeSelected(3);
   };
 
-  function on4Clicked () {
+  const on4Clicked = () => {
     props.onSizeSelected(4);
   };
 
-  function on5Clicked () {
+  const on5Clicked = () => {
     props.onSizeSelected(5);
   };
 

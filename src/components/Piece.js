@@ -28,5 +28,3 @@ Piece.propTypes = {
   selected: React.PropTypes.bool,
   styles: React.PropTypes.object,
 };
-
-

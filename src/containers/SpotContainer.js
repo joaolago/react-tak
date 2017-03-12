@@ -4,7 +4,6 @@ import Piece from '../components/Piece';
 import "../styles/Spot.css";
 
 class SpotContainer extends Component {
-
   handleClick() {
     const topPiece = this.props.content.length > 0 ?
                        _.last(this.props.content)
